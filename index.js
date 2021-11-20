@@ -17,13 +17,13 @@ app.get('/', (request, response) => {
   } 
   html += "</div>"
   response.send(html)
-})
+}
 
 app.post('/voice', (request, response) => {
   const twiml = new VoiceResponse();
 
-  console.log("request:", req)
-  console.log("request.params:", req.params)
+  console.log("request:", request)
+  console.log("request.params:", request.params)
 
   // const gather = twiml.gather({
   //   numDigits: 1,
