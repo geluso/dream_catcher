@@ -5,8 +5,19 @@ const VoiceResponse = require('twilio').twiml.VoiceResponse;
 
 const app = express();
 
+const URLS = ["http://example.com"]
+
 // Parse incoming POST params with Express middleware
 app.use(urlencoded({ extended: false }));
+
+app.get('/', (request, response) => {
+  let html = "<div>"
+  for (let url of URLS) {
+    html += "<p><a href='" + url + "'>" + url + "</a></p>"
+  } 
+  html += "</div>"
+  response.send(html)
+})
 
 app.post('/voice', (request, response) => {
   const twiml = new VoiceResponse();
@@ -18,7 +29,9 @@ app.post('/voice', (request, response) => {
   //   numDigits: 1,
   // });
 
-  if (request.RecordingUrl || request.params.RecordingUrl) {
+  const recordingUrl = request.RecordingUrl || request.params.RecordingUrl
+  if (recordingUrl) {
+    URLS.push(recordingUrl)
     response.hangup();
   } else {
     record(response)
@@ -42,5 +55,5 @@ function record(response) {
 }
 
 let port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Listening at http://localhost:3000/see-caller-count'));
+app.listen(port, () => console.log('Listening at http://localhost:3000/'));
 
