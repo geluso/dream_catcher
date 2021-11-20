@@ -36,7 +36,10 @@ function handle(request, respoonse, twiml) {
   const recordingUrl = request.body.RecordingUrl
 
   if (digit == 5) {
-    // cancel recording
+    twiml.say({
+      voice: 'woman',
+      language: 'en-US'
+    }, 'Poof. I forgot your dream. Yawn');
     return
   }
 
