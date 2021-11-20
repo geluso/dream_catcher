@@ -17,7 +17,7 @@ app.get('/', (request, response) => {
   } 
   html += "</div>"
   response.send(html)
-}
+})
 
 app.post('/voice', (request, response) => {
   const twiml = new VoiceResponse();
