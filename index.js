@@ -32,9 +32,9 @@ app.post('/voice', (request, response) => {
   const recordingUrl = request.RecordingUrl || request.params.RecordingUrl
   if (recordingUrl) {
     URLS.push(recordingUrl)
-    response.hangup();
+    twiml.hangup();
   } else {
-    record(response)
+    record(twiml)
   }
 
   // Render the response as XML in reply to the webhook request
@@ -42,13 +42,13 @@ app.post('/voice', (request, response) => {
   response.send(twiml.toString());
 });
 
-function record(response) {
-  response.say({
+function record(twiml) {
+  twiml.say({
     voice: 'woman',
     language: 'en-US'
   }, 'Let me record your dream');
 
-  response.record({
+  twiml.record({
       timeout: 10,
       transcribe: true
   });
