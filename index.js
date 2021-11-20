@@ -64,6 +64,11 @@ function handle(request, respoonse, twiml) {
   }
 
   if (digit == 1) {
+    hearDream(twiml)
+    return
+  }
+
+  if (digit == 2) {
     record(twiml)
     return
   }
@@ -75,7 +80,7 @@ function mainMenu(twiml) {
   twiml.say({
     voice: 'woman',
     language: 'en-US'
-  }, 'Wait to hear a dream or press 1 to record and share your own');
+  }, 'press 1 to hear a dream or press 2 to record and share your own');
 
   twiml.gather({
     numDigits: 1,
@@ -85,6 +90,10 @@ function mainMenu(twiml) {
       length: 1
   })
 
+  hearDream(twiml)
+}
+
+function hearDream(twiml) {
   if (URLS.length === 0) {
     twiml.say({
       voice: 'woman',
