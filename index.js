@@ -44,7 +44,7 @@ function handle(request, respoonse, twiml) {
   }
 
   if (recordingUrl) {
-    finishRecording(recordingUrl)
+    finishRecording(twiml, recordingUrl)
     URLS.push(recordingUrl)
     return
   }
@@ -108,7 +108,7 @@ function record(twiml) {
     });
 }
 
-function finishRecording(recordingUrl) {
+function finishRecording(twiml, recordingUrl) {
     URLS.push(recordingUrl)
 
     twiml.say({
