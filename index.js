@@ -25,11 +25,7 @@ app.post('/voice', (request, response) => {
   console.log("request:", request)
   console.log("request.params:", request.params)
 
-  // const gather = twiml.gather({
-  //   numDigits: 1,
-  // });
-
-  const recordingUrl = request.RecordingUrl || request.params.RecordingUrl
+  const recordingUrl = request.body.RecordingUrl
   if (recordingUrl) {
     URLS.push(recordingUrl)
     twiml.hangup();
