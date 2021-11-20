@@ -2,10 +2,22 @@ const express = require('express');
 const twilio = require('twilio');
 const urlencoded = require('body-parser').urlencoded;
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
+const fetch = require('node-fetch')
 
 const app = express();
 
-const URLS = []
+let URLS = []
+refreshUrls()
+
+function refreshUrls() {
+  console.log("refreshing urls")
+  fetch("https://5tephen.com/dreamcatcher/")
+  .then(res => res.text())
+  .then(body => {
+    URLS = body.trim().split("\n")
+    console.log(URLS)
+  });
+}
 
 // Parse incoming POST params with Express middleware
 app.use(urlencoded({ extended: false }));
@@ -20,6 +32,8 @@ app.get('/', (request, response) => {
 })
 
 app.post('/voice', (request, response) => {
+  refreshUrls()
+
   const twiml = new VoiceResponse();
 
   console.log("request.body:", request.body)
